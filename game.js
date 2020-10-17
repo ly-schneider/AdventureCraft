@@ -15,12 +15,12 @@ app.stage.scale.y = 4;
 const zeroPad = (num, places) => String(num).padStart(places, '0');
 
 // Load animated sprite
-function loadSprite(prefix, count, start=0, size=32, fmt='.png') {
+function loadSprite(prefix, indexes=[], size=32, fmt='.png') {
   let textureArray = [];
-  for (let i = start; i < count + start; i++) {
+  indexes.forEach(function(i) {
     let texture = PIXI.Texture.from(prefix + zeroPad(i, 2) + fmt);
     textureArray.push(texture);
-  };
+  });
   anim = new PIXI.extras.AnimatedSprite(textureArray);
   anim.width = size;
   anim.height = size;
@@ -45,18 +45,24 @@ window.onload = () => {
 //This `setup` function will run when the image has loaded
 function setup() {
 
-  let jesterWalk = loadSprite("jester/sprite_", 2, 6);
+  let jesterWalk = loadSprite("jester/sprite_", [6, 7]);
   app.stage.addChild(jesterWalk)
   jesterWalk.play();
 
-  let jesterLight = loadSprite("jester/sprite_", 2, 4);
+  let jesterLight = loadSprite("jester/sprite_", [4, 5]);
   jesterLight.x = 40;
   app.stage.addChild(jesterLight)
   jesterLight.play();
 
-  let jesterDefend = loadSprite("jester/sprite_", 2, 9);
+  let jesterDefend = loadSprite("jester/sprite_", [6, 2, 12, 10]);
   jesterDefend.x = 80;
   app.stage.addChild(jesterDefend)
   jesterDefend.play();
+/*
+  let jesterRocking = loadSprite("jester/sprite_", 2, 10);
+  jesterRocking.x = 80;
+  app.stage.addChild(jesterRocking)
+  jesterRocking.play();
+  */
 
 }
